@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Compile Update="Cardiology.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Dermatology.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FacialPlasticSurgery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Gastroenterology.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Gynecology.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Hepatology.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Neurology.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Neurosurgery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Ophthalmology.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="OralHealth.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Orthopedi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Otology.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="PlasticSurgery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Pulmonology.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Rhinology.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Urology.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>

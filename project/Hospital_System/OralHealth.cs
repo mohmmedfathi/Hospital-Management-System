@@ -1,0 +1,131 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+
+
+namespace Hospital_System
+{
+    public partial class OralHealth : Form
+    {
+        SqlConnection con = new SqlConnection("server=MOHAMED\\SQLEXPRESS;database=H_M_S;integrated security=true");
+        DataTable dt = new DataTable();
+        SqlDataAdapter da = new SqlDataAdapter();
+        int index;
+        public OralHealth()
+        {
+            InitializeComponent();
+        }
+
+        private void OralHealth_Load(object sender, EventArgs e)
+        {
+            da = new SqlDataAdapter("Select * from Oral_Health", con);
+            da.Fill(dt);
+            dataGridView1.DataSource = dt;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string sql = "insert into Oral_Health values (@ID,@Patient_Name,@Blood_Type,@Date_Of_Entry,@Depature_Date,@Age,@Number)";
+            SqlCommand cmd = new SqlCommand(sql, con);
+            cmd.Parameters.AddWithValue("@ID", textBox3.Text);
+            cmd.Parameters.AddWithValue("@Patient_Name", textBox1.Text);
+            cmd.Parameters.AddWithValue("@Blood_Type", comboBox1.Text);
+            cmd.Parameters.AddWithValue("@Date_Of_Entry", dateTimePicker1.Value.ToString("yyyy/MM/dd"));
+            cmd.Parameters.AddWithValue("@Depature_Date", dateTimePicker2.Value.ToString("yyyy/MM/dd"));
+            cmd.Parameters.AddWithValue("@Age", textBox2.Text.ToString());
+            cmd.Parameters.AddWithValue("@Number", textBox4.Text.ToString());
+            con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
+            MessageBox.Show("Done");
+            dt.Clear();
+            da.Fill(dt);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string sql = "select * from Oral_Health where ID=@ID";
+            SqlCommand cmd = new SqlCommand(sql, con);
+            cmd.Parameters.AddWithValue("@ID", textBox3.Text);
+            SqlDataReader r;
+            con.Open();
+            r = cmd.ExecuteReader();
+            if (r.HasRows)
+            {
+                while (r.Read())
+                {
+                    textBox1.Text = r["Patient_Name"].ToString();
+                    comboBox1.Text = r["Blood_Type"].ToString();
+                    dateTimePicker1.Value = Convert.ToDateTime(r["Date_Of_Entry"]);
+                    dateTimePicker2.Value = Convert.ToDateTime(r["Depature_Date"]);
+                    textBox2.Text = r["Age"].ToString();
+                    textBox4.Text = r["Number"].ToString();
+
+                }
+            }
+            else { MessageBox.Show("The patient is not present "); }
+            con.Close();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string sql = "update Oral_Health set ID=@ID, Patient_Name = @Patient_Name, Blood_Type = @Blood_Type, Date_Of_Entry = @Date_Of_Entry, Depature_Date = @Depature_Date, Age =@Age, Number =@Number where ID=@ID";
+            SqlCommand cmd = new SqlCommand(sql, con);
+            cmd.Parameters.AddWithValue("@ID", textBox3.Text);
+            cmd.Parameters.AddWithValue("@Patient_Name", textBox1.Text);
+            cmd.Parameters.AddWithValue("@Blood_Type", comboBox1.Text);
+            cmd.Parameters.AddWithValue("@Date_Of_Entry", dateTimePicker1.Value.ToString("yyyy/MM/dd"));
+            cmd.Parameters.AddWithValue("@Depature_Date", dateTimePicker2.Value.ToString("yyyy/MM/dd"));
+            cmd.Parameters.AddWithValue("@Age", textBox2.Text.ToString());
+            cmd.Parameters.AddWithValue("@Number", textBox4.Text.ToString());
+            con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
+            MessageBox.Show("Done");
+            DataGridViewRow newdata = dataGridView1.Rows[index];
+            newdata.Cells[0].Value = textBox3.Text;
+            newdata.Cells[1].Value = textBox1.Text;
+            newdata.Cells[2].Value = comboBox1.SelectedItem;
+            newdata.Cells[3].Value = dateTimePicker1.Value;
+            newdata.Cells[4].Value = dateTimePicker2.Value;
+            newdata.Cells[5].Value = textBox2.Text;
+            newdata.Cells[6].Value = textBox4.Text;
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+            string sql = "delete  from Oral_Health where ID=@ID";
+            SqlCommand cmd = new SqlCommand(sql, con);
+            cmd.Parameters.Clear();
+            cmd.Parameters.AddWithValue("@ID", textBox3.Text);
+            con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
+            index = dataGridView1.CurrentCell.RowIndex;
+            dataGridView1.Rows.RemoveAt(index);
+            textBox3.Clear();
+            textBox1.Clear();
+            comboBox1.Text = "";
+            textBox2.Clear();
+            textBox4.Clear();
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            index = e.RowIndex;
+            DataGridViewRow row = dataGridView1.Rows[index];
+            textBox3.Text = row.Cells[0].Value.ToString();
+            textBox1.Text = row.Cells[1].Value.ToString();
+            comboBox1.Text = row.Cells[2].Value.ToString();
+            textBox2.Text = row.Cells[5].Value.ToString();
+            textBox4.Text = row.Cells[6].Value.ToString();
+        }
+    }
+}

@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Hospital_System": {
+      "commandName": "Project",
+      "sqlDebugging": true,
+      "nativeDebugging": true
+    }
+  }
+}
